@@ -18,10 +18,11 @@ struct Card{
 class Deck{
 	vector<Card> deck;
 	public:
-		Deck();//create a deck
+		Deck();
 		void showDeck();//show card in deck
 		void shuffleDeck();//shuffle a deck
 		int getSize();//return deck size
+		void eraseCard(int);//erase a card in deck
 		Card getCard(int);//return card with the same position with parameter
 };
 
@@ -29,23 +30,7 @@ void Deck::shuffleDeck(){
 	random_shuffle (deck.begin(), deck.end());
 }
 
-
-ostream & operator<<(ostream &os,Card &card){
-	//cout card
-	os<<card.face<<card.suit;
-}
-
-bool operator==(Card &c1,Card &c2){
-	//check equality
-	if(c1.face == c2.face){
-		return true;
-	}else{
-		return false;
-	}
-}
-
 Deck::Deck(){
-	
 
 	int allSuitSize = sizeof(allSuit)/sizeof(allSuit[0]);
 	int allFaceSize = sizeof(allFace)/sizeof(allFace[0]);
@@ -62,4 +47,38 @@ Deck::Deck(){
 		
 	shuffleDeck();
 	
+
+}
+
+
+ostream & operator<<(ostream &os,Card &card){
+	os<<card.face<<card.suit;
+}
+
+bool operator==(Card &c1,Card &c2){
+	if(c1.face == c2.face){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+void Deck::showDeck(){
+	for(int i =0;i<deck.size();i++){
+		cout<<deck[i]<<" ";
+	}
+	cout<<"\n";
+	
+}
+
+int Deck::getSize(){
+	return deck.size();
+}
+
+Card Deck::getCard(int position){
+	return deck[position];
+}
+
+void Deck::eraseCard(int position){
+	deck.erase(deck.begin()+position);
 }
