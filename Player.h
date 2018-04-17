@@ -11,10 +11,64 @@ class Player{
 		void showCard();//show a card in your hand
 		void shuffleHand();//shuffle a card in your hand
 		bool checkPairs();//check if there a pair in your hand
+		void showBackCard();
 		int getHandSize();//return how much card left in player hand
 		
 		
 };
+
+void Player::showBackCard(){
+	for(int i = 0;i<hand.size();i++){
+		cout<<" -----"<<"\t";
+	}cout<<"\n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|*********|"<<"    \n";
+	//}cout<<"/n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|*********|"<<"    \n";
+	//}cout<<"/n";
+	for(int i = 0;i<hand.size();i++){
+		cout<<"|  *  |"<<"\t";
+	}cout<<"\n";
+	for(int i = 0;i<hand.size();i++){
+		cout<<"| * * |"<<"\t";
+	}cout<<"\n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|*********.......********|"<<"    \n";
+	//}cout<<"/n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|*******...........******|"<<"    \n";
+	//}cout<<"/n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|******.............*****|"<<"    \n";
+	//}cout<<"/n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|******.............*****|"<<"    \n";
+	//}cout<<"/n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|*******...........******|"<<"    \n";
+	//}cout<<"/n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|*********.......********|"<<"    \n";
+	//}cout<<"/n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|***********...**********|"<<"    \n";
+	//}cout<<"/n";
+	//for(int i = 0;i<hand.size();i++){
+		//cout<<"|************.***********|"<<"    \n";
+	//}cout<<"/n";
+	for(int i = 0;i<hand.size();i++){
+		cout<<"| * * |"<<"\t";
+	}cout<<"\n";
+	for(int i = 0;i<hand.size();i++){
+		cout<<"|  *  |"<<"\t";
+	}cout<<"\n";
+	for(int i = 0;i<hand.size();i++){
+		cout<<" -----"<<"\t";
+	}cout<<"\n";
+	
+}
+
 
 void Player::pickCard(Player &anotherPlayer,int pick){
 

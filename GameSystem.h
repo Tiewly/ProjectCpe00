@@ -62,6 +62,7 @@ void GameSystem::gamePlay(){
 			
 			cout<<"your turn...\n";
 			cout<<"your opponent have "<<p[1].getHandSize()<<" card in hand\n";
+			p[1].showBackCard();
 			cout<<"you have "<<p[0].getHandSize()<<" card in hand\n";
 			cout<<"your card: ";
 			p[0].showCard();
@@ -105,6 +106,7 @@ void GameSystem::gamePlay(){
 			cout<<"your card: ";
 			p[0].showCard();
 			system("pause");
+			p[1].showBackCard();
 			pick = rand()%p[0].getHandSize();
 			cout<<"your opponent pick your "<<pick+1<<" card\n";
 

@@ -9,13 +9,11 @@ int main(int argc, char** argv) {
 	
 	GameSystem game;
 	bool playAgain=true;
-	do{
-		
+	do{	
 		game.gamePlay();
 		
 		cout<<"Do you want to play again: ";
 		cin>>playAgain;
-		
 		
 	}while(playAgain);
 	
