@@ -2,92 +2,53 @@
 
 class Player{
 	vector<Card> hand;
-	string tag;
+	
 	public:
 		string name;
-		void pickCard(Player&,int );//pick card form opponent hand
+		string tag;
+		Player(string,string);
+		Card pickCard(Player&,int );//pick card form opponent hand
 		void addCard(Card);//add a card to your hand
 		void checkAndDiscard();//change to game system
-		void showCard();//show a card in your hand
+		void showCard();//show a card in your hand 
+		void showCardWithPos(int);
+		void showCardPairs(int,int);
 		void shuffleHand();//shuffle a card in your hand
-		bool checkPairs();//check if there a pair in your hand
-		void showBackCard();
+		bool checkPairs(int &,int &);//check if there a pair in your hand
 		int getHandSize();//return how much card left in player hand
 		
 		
 };
 
-void Player::showBackCard(){
-	for(int i = 0;i<hand.size();i++){
-		cout<<" -----"<<"\t";
-	}cout<<"\n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|*********|"<<"    \n";
-	//}cout<<"/n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|*********|"<<"    \n";
-	//}cout<<"/n";
-	for(int i = 0;i<hand.size();i++){
-		cout<<"|  *  |"<<"\t";
-	}cout<<"\n";
-	for(int i = 0;i<hand.size();i++){
-		cout<<"| * * |"<<"\t";
-	}cout<<"\n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|*********.......********|"<<"    \n";
-	//}cout<<"/n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|*******...........******|"<<"    \n";
-	//}cout<<"/n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|******.............*****|"<<"    \n";
-	//}cout<<"/n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|******.............*****|"<<"    \n";
-	//}cout<<"/n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|*******...........******|"<<"    \n";
-	//}cout<<"/n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|*********.......********|"<<"    \n";
-	//}cout<<"/n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|***********...**********|"<<"    \n";
-	//}cout<<"/n";
-	//for(int i = 0;i<hand.size();i++){
-		//cout<<"|************.***********|"<<"    \n";
-	//}cout<<"/n";
-	for(int i = 0;i<hand.size();i++){
-		cout<<"| * * |"<<"\t";
-	}cout<<"\n";
-	for(int i = 0;i<hand.size();i++){
-		cout<<"|  *  |"<<"\t";
-	}cout<<"\n";
-	for(int i = 0;i<hand.size();i++){
-		cout<<" -----"<<"\t";
-	}cout<<"\n";
-	
+Player::Player(string tname = "stanley",string ttag = "opponent"){
+	name = tname;
+	tag = ttag;
 }
 
-
-void Player::pickCard(Player &anotherPlayer,int pick){
-
+Card Player::pickCard(Player &anotherPlayer,int pick){
+	Card tcard = anotherPlayer.hand[pick];
 	hand.push_back(anotherPlayer.hand[pick]);
-	cout<<"pick a "<<anotherPlayer.hand[pick]<<"\n";
 	anotherPlayer.hand.erase(anotherPlayer.hand.begin()+pick);
-	
+	return tcard;
 }
 
-bool Player::checkPairs(){
+bool Player::checkPairs(int &x,int &y){
+	if(hand.size() == 0){
+		return false;
+	}
+	
 	for(int i =0;i<hand.size()-1;i++){
 		
 		for(int j = i+1;j<hand.size();j++){
 			if(hand[i] == hand[j]){
+				x=i;
+				y=j;
 				return true;
 			}
 			
 		}
 	}
+	return false;
 }
 
 void Player::addCard(Card card){
@@ -100,38 +61,103 @@ int Player::getHandSize(){
 
 void Player::checkAndDiscard(){
 	
-	bool isDiscard = true;
-
-	while(checkPairs()){
-
-		for(int i =0;i<hand.size()-1;i++){
-			for(int j = i+1;j<hand.size();j++){
-				
-				if(hand[i] == hand[j]){
-					
-					cout<<"discard "<<hand[i]<<" and "<<hand[j]<<" pairs\n";
-					
-					hand.erase(hand.begin()+i);
-					hand.erase(hand.begin()+j-1);	
-				}
-				
-			}
-		}
-		
+	int x,y;
+	
+	if(!checkPairs(x,y)){
+		showCardWithPos(hand.size() - 1);
+		return;
 	}
-	cout<<"no pair in the hand\n";
+
+	while(checkPairs(x,y)){
+		showCardPairs(x,y);
+		cout<<"discard "<<hand[x].face<<" pairs\n";
+		hand.erase(hand.begin()+x);
+		hand.erase(hand.begin()+y-1);	
+	}
+	
+
 }
 
 void Player::showCard(){
+	cout<<name<<":\n";
 	if(hand.size()==0){
 		cout<<"no card on left\n";
 		return;
 	}
+	//cout<<setw(4);
+	for(int i = 0;i<hand.size();i++){
+		cout<<" ---"<<"\t";
+	}cout<<"\n";	
 	for(int i =0;i<hand.size();i++){
-		cout<<hand[i]<<" ";
-	}
+		if(tag == "player"){
+			cout<<"|"<<hand[i]<<"|\t";
+		}
+		else if(tag == "opponent"){
+		
+				cout<<"| * |"<<"\t";
+		}
+			
+	}cout<<"\n";
+	for(int i = 0;i<hand.size();i++){
+		cout<<" ---"<<"\t";
+	}cout<<"\n";
+	
 	cout<<"\n";
 }
+
+void Player::showCardPairs(int pos1,int pos2){
+	cout<<name<<":\n";
+	for(int i = 0;i<hand.size();i++){
+		cout<<" ---"<<"\t";
+	}cout<<"\n";	
+	for(int i =0;i<hand.size();i++){
+		if(pos1 == i || pos2 == i){
+			continue;
+		}
+		if(tag == "player"){
+			cout<<"|"<<hand[i]<<"|\t";
+		}
+		else
+			cout<<"| * |"<<"\t";
+			
+	}
+	cout<<"|"<<hand[pos1]<<"|\t";
+	cout<<"|"<<hand[pos2]<<"|\t";
+	
+	cout<<"\n";
+	for(int i = 0;i<hand.size();i++){
+		cout<<" ---"<<"\t";
+	}cout<<"\n";
+	
+	cout<<"\n";
+}
+
+void Player::showCardWithPos(int pos){
+	cout<<name<<":\n";
+
+	//cout<<setw(4);
+	for(int i = 0;i<hand.size();i++){
+		cout<<" ---"<<"\t";
+	}cout<<"\n";	
+	for(int i =0;i<hand.size();i++){
+		if(tag == "player"){
+			cout<<"|"<<hand[i]<<"|\t";
+		}
+		else if(tag == "opponent"){
+			if(i == pos)
+				cout<<"|"<<hand[i]<<"|\t";
+			else 
+				cout<<"| * |"<<"\t";
+		}
+			
+	}cout<<"\n";
+	for(int i = 0;i<hand.size();i++){
+		cout<<" ---"<<"\t";
+	}cout<<"\n";
+	
+	cout<<"\n";
+}
+
 
 void Player::shuffleHand(){
 

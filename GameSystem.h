@@ -1,41 +1,107 @@
 #include "Player.h"
 
 class GameSystem{
-	Deck mainDeck;
+	
 	public:
 		int turn;
-		bool checkWinner(Player &);
 		int getRandomStarter(int);
-		void dealCard(Player &,Player &);
+		int chooseACard(Player &);
+		bool checkWinner(Player &);
+		void dealCard(Player &,Player &,Player &,Player &);
+		void pickACard(Player &,Player &,int);
+		void discardAndShuffle(Player &);
+		void waitAndClear();
+		void drawScene(Player &,Player &,Player &,Player &,int);
+		void drawScene(Player &,Player &,int);
 		void gamePlay();
 		
 };
 
 bool GameSystem::checkWinner(Player &p){
 
-	if(p.getHandSize() <= 0){
+	if(p.getHandSize() < 1){
 		return true;
 	}else{
 		return false;
 	}
 }
 
-void GameSystem::dealCard(Player &p1,Player &p2){
+int GameSystem::chooseACard(Player &p){
+	int pick = 0;
+	do{
+		cout<<"pick card form opponent: ";
+		cin>>pick;
+				
+		if(pick<=0 || pick>p.getHandSize()){
+			cout<<"out of opponent hand range\n";	
+		}
+				
+	}while(pick<=0 || pick>p.getHandSize());
+			
+	return pick;
+}
 
-	for(int i=0; mainDeck.getSize() > 0;i++){
-		if(i%2 == 0){
-			p1.addCard(mainDeck.getCard(0));
-			mainDeck.eraseCard(0);
+void GameSystem::drawScene(Player &p1,Player &p2,Player &p3,Player &p4,int revealPos = 0){
+	cout<<"\n------------------------------------------------\n";
+	p1.showCard();
+	p2.showCard();
+	p3.showCard();
+	p4.showCard();
+	cout<<"---------------------------------------------------\n";
+}
+
+void GameSystem::drawScene(Player &p1,Player &p2,int revealPos = 0){
+	cout<<"\n------------------------------------------------\n";
+	p1.showCard();
+	p2.showCardWithPos(revealPos);
+	cout<<"---------------------------------------------------\n";
+}
+
+void GameSystem::discardAndShuffle(Player &p){
+	p.checkAndDiscard();
+	p.shuffleHand();
+}
+
+void GameSystem::pickACard(Player &p1,Player &p2,int pickPos){
+	drawScene(p1,p2,pickPos);
+	Card picked = p1.pickCard(p2,pickPos);
+	cout<<"Pick "<<picked<<"\n";
+	discardAndShuffle(p1);
+	
+}
+
+void GameSystem::dealCard(Player &p1,Player &p2,Player &p3,Player &p4){
+	
+	Deck mainDeck;
+
+	for(int i=0; i< mainDeck.getSize() ;i++){
+		if(i%4 == 0){
+			p1.addCard(mainDeck.getCard(i));
+			
+		}else if(i%4 == 1){
+			p2.addCard(mainDeck.getCard(i));
+			
+		}else if(i%4 == 2){
+			p3.addCard(mainDeck.getCard(i));
 		}else{
-			p2.addCard(mainDeck.getCard(0));
-			mainDeck.eraseCard(0);
+			p4.addCard(mainDeck.getCard(i));
 		}
 	}
 	
 	p1.checkAndDiscard();
 	p2.checkAndDiscard();
+	p3.checkAndDiscard();
+	p4.checkAndDiscard();
 	
 }
+
+void GameSystem::waitAndClear(){
+	
+	system("pause");
+	system("cls");
+	
+}
+
 
 int GameSystem::getRandomStarter(int playerNumber){
 	return rand()%playerNumber;
@@ -43,92 +109,143 @@ int GameSystem::getRandomStarter(int playerNumber){
 
 void GameSystem::gamePlay(){
 	
-	int playerNumber = 2;
-	Player p[playerNumber];
-	dealCard(p[0],p[1]);
+	int playerNumber = 4;
+	Player player("Rick","player");
+	Player opponent[playerNumber-1];
+	opponent[1].name = "Parker";
+	opponent[2].name = "Kim";
+	dealCard(player,opponent[0],opponent[1],opponent[2]);
 	turn = getRandomStarter(playerNumber);
-	system("cls");
 	
+	system("cls");
+	cout<<"turn = "<<turn<<"\n";
 	cout<<"..............let's play.............\n";
 	
-	cout<<"Start with 2 player\n";
-	cout<<"deal a card.....\n";
+	cout<<"Start with 4 player\n";
+
 	
-	system("pause");
 	cout<<"\n---------------------------------------------------\n";
 	while(true){
 		
 		if(turn ==0){
 			
-			cout<<"your turn...\n";
-			cout<<"your opponent have "<<p[1].getHandSize()<<" card in hand\n";
-			p[1].showBackCard();
-			cout<<"you have "<<p[0].getHandSize()<<" card in hand\n";
-			cout<<"your card: ";
-			p[0].showCard();
-			int pick = 0;
-			do{
-				cout<<"pick card form opponent: ";
-				cin>>pick;
-				
-				if(pick<=0 || pick>p[1].getHandSize()){
-					cout<<"out of opponent hand range\n";	
-				}
-				
-			}while(pick<=0 || pick>p[1].getHandSize());
-				
-			p[0].pickCard(p[1],pick-1);
-			p[0].checkAndDiscard();
-			p[0].shuffleHand();
-			cout<<"your hand: ";
-			p[0].showCard();
-			if(checkWinner(p[0])){
+			cout<<"Your Turn\n";
+			drawScene(player,opponent[0],opponent[1],opponent[2]);
+			int pick = chooseACard(opponent[0]);
+			system("pause");
+			system("cls");
+			//drawScene(player,opponent[0],opponent[1],opponent[2]);
+			pickACard(player,opponent[0],pick-1);
+			//system("pause");
+			//system("cls");
+			//drawScene(player,opponent[0],opponent[1],opponent[2]);
+			if(checkWinner(player)){
 				
 				cout<<"you winnnn\n\n";
+				return;
 				
-				break;
-			}else if(checkWinner(p[1])){
+			}else if(checkWinner(opponent[0])){
 				cout<<"opponent win\n\n";
-				
-				break;
+				return;
 			}
 			
-			system("pause");
-			
-			turn = 1;
+			turn++;
 			cout<<"turn end...";
 			cout<<"\n---------------------------------------------------\n";
+			system("pause");
+			system("cls");
+			
 		}else if(turn == 1){
+			
 			int pick;
-			cout<<"your opponent turn...\n";
-			cout<<"your opponent have "<<p[1].getHandSize()<<" card in hand\n";
-			cout<<"you have "<<p[0].getHandSize()<<" card in hand\n";
-			cout<<"your card: ";
-			p[0].showCard();
+			cout<<opponent[0].name<<" turn...\n";
+			drawScene(opponent[0],opponent[1],opponent[2],player);
+			pick = rand()%opponent[1].getHandSize();
 			system("pause");
-			p[1].showBackCard();
-			pick = rand()%p[0].getHandSize();
-			cout<<"your opponent pick your "<<pick+1<<" card\n";
-
-			p[1].pickCard(p[0],pick);
-			p[1].checkAndDiscard();
-			p[1].shuffleHand();
+			system("cls");
+			cout<<"pick "<<pick+1<<" card\n";
+			//drawScene(opponent[0],opponent[1],opponent[2],player);
+			pickACard(opponent[0],opponent[1],pick);
+			system("pause");
+			system("cls");
+			//drawScene(opponent[0],opponent[1],opponent[2],player);
 		
-			system("pause");
-			if(checkWinner(p[1])){
-				cout<<"opponent winn.......\n\n";
+			if(checkWinner(opponent[0])){
+				cout<<opponent[0].name <<" winn.......\n\n";
 
-				break;
-			}else if(checkWinner(p[0])){
-				cout<<"you winn......\n\n";
+				return;
+			}else if(checkWinner(opponent[1])){
+				cout<<opponent[1].name <<" winn.......\n\n";
 				
-				break;
+				return;
 			}
+			turn++;
 			cout<<"turn end...";
 			cout<<"\n----------------------------------------------------\n";
+			system("pause");
+			system("cls");
+	
 			
-			turn =0;
-		}
+		}else if(turn == 2){
+			
+			int pick;
+			cout<<opponent[1].name<<" turn...\n";
+			drawScene(opponent[1],opponent[2],player,opponent[0]);
+			pick = rand()%opponent[2].getHandSize();
+			system("pause");
+			system("cls");
+			cout<<"pick "<<pick+1<<" card\n";
+			//drawScene(opponent[1],opponent[2],player,opponent[0]);
+			pickACard(opponent[1],opponent[2],pick);
+			//system("pause");
+			//system("cls");
+			//drawScene(opponent[1],opponent[2],player,opponent[0]);
 		
+			if(checkWinner(opponent[1])){
+				cout<<opponent[1].name <<" winn.......\n\n";
+
+				return;
+			}else if(checkWinner(opponent[2])){
+				cout<<opponent[2].name <<" winn.......\n\n";
+				
+				return;
+			}
+			turn++;
+			cout<<"turn end...";
+			cout<<"\n----------------------------------------------------\n";
+			system("pause");
+			system("cls");
+		}else if(turn == 3){
+			
+			int pick;
+			cout<<opponent[2].name<<" turn...\n";
+			drawScene(opponent[2],player,opponent[0],opponent[1]);
+			pick = rand()%player.getHandSize();
+			system("pause");
+			system("cls");
+			cout<<"pick "<<pick+1<<" card\n";
+			//drawScene(opponent[2],player,opponent[0],opponent[1]);
+			pickACard(opponent[2],player,pick);
+			//system("pause");
+			//system("cls");
+			//drawScene(opponent[2],player,opponent[0],opponent[1]);
+		
+			if(checkWinner(opponent[2])){
+				cout<<opponent[2].name <<" winn.......\n\n";
+
+				return;
+			}else if(checkWinner(player)){
+				
+				cout<<"you winnnn\n\n";
+				return;
+				
+			}
+			turn = 0;
+			cout<<"turn end...";
+			cout<<"\n----------------------------------------------------\n";
+			system("pause");
+			system("cls");
+		
+		}
 	}
 }
