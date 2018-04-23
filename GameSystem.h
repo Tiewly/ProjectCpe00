@@ -145,7 +145,7 @@ void GameSystem::gamePlay(){
 				return;
 				
 			}else if(checkWinner(opponent[0])){
-				cout<<"opponent win\n\n";
+				cout<<opponent[0].name<<" win\n\n";
 				return;
 			}
 			
@@ -166,8 +166,8 @@ void GameSystem::gamePlay(){
 			cout<<"pick "<<pick+1<<" card\n";
 			//drawScene(opponent[0],opponent[1],opponent[2],player);
 			pickACard(opponent[0],opponent[1],pick);
-			system("pause");
-			system("cls");
+			//system("pause");
+			//system("cls");
 			//drawScene(opponent[0],opponent[1],opponent[2],player);
 		
 			if(checkWinner(opponent[0])){

@@ -20,7 +20,7 @@ class Player{
 		
 };
 
-Player::Player(string tname = "stanley",string ttag = "opponent"){
+Player::Player(string tname = "Stanley",string ttag = "opponent"){
 	name = tname;
 	tag = ttag;
 }
@@ -84,7 +84,7 @@ void Player::showCard(){
 		cout<<"no card on left\n";
 		return;
 	}
-	//cout<<setw(4);
+
 	for(int i = 0;i<hand.size();i++){
 		cout<<" ---"<<"\t";
 	}cout<<"\n";	
@@ -135,7 +135,6 @@ void Player::showCardPairs(int pos1,int pos2){
 void Player::showCardWithPos(int pos){
 	cout<<name<<":\n";
 
-	//cout<<setw(4);
 	for(int i = 0;i<hand.size();i++){
 		cout<<" ---"<<"\t";
 	}cout<<"\n";	
