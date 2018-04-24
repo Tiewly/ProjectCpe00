@@ -141,11 +141,27 @@ void GameSystem::gamePlay(){
 			//drawScene(player,opponent[0],opponent[1],opponent[2]);
 			if(checkWinner(player)){
 				
-				cout<<"you winnnn\n\n";
+				cout<<"---------------------------------\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*          YOU WIN!!!           *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"---------------------------------\n";
 				return;
 				
 			}else if(checkWinner(opponent[0])){
-				cout<<opponent[0].name<<" win\n\n";
+				cout<<"---------------------------------\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*         Stanley WIN!!!        *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"---------------------------------\n";
 				return;
 			}
 			
@@ -171,11 +187,30 @@ void GameSystem::gamePlay(){
 			//drawScene(opponent[0],opponent[1],opponent[2],player);
 		
 			if(checkWinner(opponent[0])){
-				cout<<opponent[0].name <<" winn.......\n\n";
+			
+				cout<<"---------------------------------\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*         Stanley WIN!!!        *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"---------------------------------\n";
+				
 
 				return;
 			}else if(checkWinner(opponent[1])){
-				cout<<opponent[1].name <<" winn.......\n\n";
+				
+				cout<<"---------------------------------\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*         Parker WIN!!!         *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"---------------------------------\n";
 				
 				return;
 			}
@@ -202,11 +237,29 @@ void GameSystem::gamePlay(){
 			//drawScene(opponent[1],opponent[2],player,opponent[0]);
 		
 			if(checkWinner(opponent[1])){
-				cout<<opponent[1].name <<" winn.......\n\n";
+				
+				cout<<"---------------------------------\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*         Parker WIN!!!         *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"---------------------------------\n";
 
 				return;
 			}else if(checkWinner(opponent[2])){
-				cout<<opponent[2].name <<" winn.......\n\n";
+				
+				cout<<"---------------------------------\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*           Kim WIN!!!          *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"---------------------------------\n";
 				
 				return;
 			}
@@ -231,12 +284,29 @@ void GameSystem::gamePlay(){
 			//drawScene(opponent[2],player,opponent[0],opponent[1]);
 		
 			if(checkWinner(opponent[2])){
-				cout<<opponent[2].name <<" winn.......\n\n";
+				cout<<"---------------------------------\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*           Kim WIN!!!   	   *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"---------------------------------\n";
 
 				return;
 			}else if(checkWinner(player)){
 				
-				cout<<"you winnnn\n\n";
+				cout<<"---------------------------------\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*          YOU WIN!!!           *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"*                               *\n";
+				cout<<"---------------------------------\n";
+				
 				return;
 				
 			}

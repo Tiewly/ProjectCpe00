@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string allSuit[] = {"D","C","S","H"};
+string allSuit[] = {"D","H","S","C"};
 string allFace[] = {"A","2","3","4","5","6","7","8","9","10","J","K","Q"};
 string heart[] = {"|    o   o    |","|   ooo ooo   |","|    ooooo    |","|     ooo     |","|      o      |"};//heart
 string diamond[] ={"|      xx     |","|     xxxx    |","|    xxxxxx   |","|    xxxxxx   |","|     xxxx    |","|      xx     |"};//diamond

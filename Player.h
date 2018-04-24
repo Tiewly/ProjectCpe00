@@ -141,6 +141,7 @@ void Player::showCardWithPos(int pos){
 	for(int i =0;i<hand.size();i++){
 		if(tag == "player"){
 			cout<<"|"<<hand[i]<<"|\t";
+			
 		}
 		else if(tag == "opponent"){
 			if(i == pos)
